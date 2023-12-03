@@ -37,7 +37,6 @@ function knightMoves(start, end) {
     }
 
     const nextMoves = getMoves(current);
-    let nextMovesCount = (nextMovesCount = 0 ? queue.length : nextMovesCount);
 
     queue = queue.concat(nextMoves);
   }
