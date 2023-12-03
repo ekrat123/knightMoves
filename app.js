@@ -49,7 +49,9 @@ function knightMoves(start, end) {
   }
   return `You made it in ${
     madedmoves[madedmoves.length - 1].distance
-  } moves! Here's your path ${JSON.stringify(path.reverse()).slice(1, -1)}`;
+  } moves! Here's your path ${JSON.stringify(path.reverse())
+    .slice(1, -1)
+    .replaceAll("],", "]")}`;
 }
 
 console.log(knightMoves([3, 3], [4, 3]));
