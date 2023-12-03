@@ -47,10 +47,10 @@ function knightMoves(start, end) {
     lastMove = madedmoves[i];
     path.push(lastMove.move);
   }
-  /* return `You made it in ${
+  return `You made it in ${
     madedmoves[madedmoves.length - 1].distance
-  } moves! Here's your path ${path.reverse()}`; */
-  return path.reverse();
+  } moves! Here's your path ${JSON.stringify(path.reverse()).slice(1, -1)}`;
+  /* return path.reverse(); */
 }
 
 console.log(knightMoves([3, 3], [4, 3]));
