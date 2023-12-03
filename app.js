@@ -19,28 +19,38 @@ function getMoves(arr) {
 function knightMoves(start, end) {
   const madedmoves = [];
   let queue = [];
-  queue.push(start);
+  queue.push({ move: start, distance: 0, pre: null });
 
   while (queue.length > 0) {
     let current = queue.shift();
-    let currentObj = {
-      move: current,
-      distance:
-        madedmoves.length === 0
-          ? 0
-          : madedmoves[madedmoves.length - 1].distance + 1,
-      pre: madedmoves.length === 0 ? null : madedmoves.length - 1,
-    };
-    madedmoves.push(currentObj);
-    if (current[0] === end[0] && current[1] === end[1]) {
+
+    madedmoves.push(current);
+    if (current.move[0] === end[0] && current.move[1] === end[1]) {
       break;
     }
 
-    const nextMoves = getMoves(current);
+    let nextMoves = getMoves(current.move);
+    nextMoves = nextMoves.map((move) => {
+      return {
+        move: move,
+        distance: current.distance + 1,
+        pre: madedmoves.length - 1,
+      };
+    });
 
     queue = queue.concat(nextMoves);
   }
-  return madedmoves;
+
+  let lastMove = madedmoves[madedmoves.length - 1];
+  const path = [lastMove.move];
+  for (let i = lastMove.pre; i !== null; i = madedmoves[i].pre) {
+    lastMove = madedmoves[i];
+    path.push(lastMove.move);
+  }
+  /* return `You made it in ${
+    madedmoves[madedmoves.length - 1].distance
+  } moves! Here's your path ${path.reverse()}`; */
+  return path.reverse();
 }
 
-console.log(knightMoves([3, 3], [5, 4]));
+console.log(knightMoves([3, 3], [4, 3]));
